@@ -27,8 +27,8 @@ export default function EventPage() {
 
         if (location) {
             const distance = calculateDistance({
-                lat1: 121, //event
-                lon1: 22, //event
+                lat1: location.latitude, //event
+                lon1: location.longitude, //event
                 lat2: location.latitude,
                 lon2: location.longitude,
             });

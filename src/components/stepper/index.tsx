@@ -10,6 +10,7 @@ import * as React from 'react';
 import toast from 'react-hot-toast';
 
 import { getUserLocation } from '../../lib/helper';
+import Ar from '../Ar/index';
 
 const steps = [
     {
@@ -19,7 +20,7 @@ const steps = [
         label: 'NFT collected successfully from booth',
     },
     {
-        label: 'Attesting user details',
+        label: 'Getting user details',
     },
     {
         label: 'All set!',
@@ -70,6 +71,7 @@ export default function VerticalLinearStepper({
     }, [isUserInRange, activeStep]);
     return (
         <div>
+            {showAR && <Ar onClose={handleCloseAR} />}
             <Box sx={{ maxWidth: 400 }}>
                 <Stepper activeStep={activeStep} orientation="vertical">
                     {steps.map((step, index) => (
