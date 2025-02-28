@@ -35,8 +35,6 @@ export default function VerticalLinearStepper({
 }) {
     const [activeStep, setActiveStep] = React.useState(0);
     const [showAR, setShowAR] = React.useState(false);
-    const [signLink, setSignLink] = React.useState('');
-    const [orderId, setOrderId] = React.useState('');
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
@@ -88,18 +86,7 @@ export default function VerticalLinearStepper({
                                     ) : null
                                 }
                             >
-                                {index === 2 && signLink ? (
-                                    <a
-                                        href={`https://testnet-scan.sign.global/attestation/onchain_evm_80002_${signLink}`}
-                                        target="_blank"
-                                    >
-                                        {step.label}
-                                    </a>
-                                ) : (
-                                    <div className="text-black">
-                                        {step.label}
-                                    </div>
-                                )}
+                                <div className="text-black">{step.label}</div>
                             </StepLabel>
                             <StepContent>
                                 {activeStep === 3 && (
@@ -108,9 +95,7 @@ export default function VerticalLinearStepper({
                                             onClick={handleRedeem}
                                             sx={{ mt: 1, mr: 1 }}
                                         >
-                                            {orderId
-                                                ? `Redemed (order id : ${orderId}) Powered by Okto`
-                                                : `Redeem`}
+                                            {`Redeem`}
                                         </Button>
                                     </Box>
                                 )}
