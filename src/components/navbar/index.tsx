@@ -1,33 +1,32 @@
 import { Bell, Calendar, Compass, Search } from 'lucide-react';
 
-import useGlobalStorage from '../../store';
+import {
+    Address,
+    Avatar,
+    EthBalance,
+    Identity,
+    Name,
+} from '@coinbase/onchainkit/identity';
 import {
     ConnectWallet,
     Wallet,
     WalletDropdown,
     WalletDropdownBasename,
+    WalletDropdownDisconnect,
     WalletDropdownFundLink,
     WalletDropdownLink,
-    WalletDropdownDisconnect,
 } from '@coinbase/onchainkit/wallet';
-import {
-    Address,
-    Avatar,
-    Name,
-    Identity,
-    EthBalance,
-} from '@coinbase/onchainkit/identity';
 import { Button } from '../ui/button';
-import { HoverBorderGradientDemo } from '../ui/wallet-button';
+import useGlobalStorage from '../../store';
 export default function Navbar() {
-    const { address } = useGlobalStorage();
+    const { name } = useGlobalStorage();
     return (
         <nav className="flex h-14 items-center justify-between px-4 bg-[#0c162c] border-b border-zinc-800">
             {/* Left section */}
 
             <div
                 onClick={() => (window.location.href = '/')}
-                className="flex items-center space-x-4 cursor-pointer"
+                className="flex items-center space-x-4 cursor-pointer text-white font-bold text-2xl relative"
             >
                 Regen
             </div>
@@ -92,7 +91,7 @@ export default function Navbar() {
                             </WalletDropdown>
                         </Wallet>
                     </div>
-
+                    <div className="text-white font-semibold">{name}</div>
                     {/* {window.location.pathname !== '/' && (
                         <HoverBorderGradientDemo title={address} />
                     )} */}

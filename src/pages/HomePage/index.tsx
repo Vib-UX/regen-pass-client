@@ -7,9 +7,33 @@ import {
     Trophy,
     Users,
 } from 'lucide-react';
+import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
+import useGlobalStorage from '../../store';
 const HomePage = () => {
     const navigate = useNavigate();
+    const { setEmail, setName } = useGlobalStorage();
+    const handleGoogleLogin = async (credentialResponse: any) => {
+        const idToken = credentialResponse.credential;
+        const userInfo = await fetchUserDetails(idToken);
+        console.log(userInfo);
+        setEmail(userInfo.email);
+        setName(userInfo.given_name);
+        navigate('/events');
+    };
+    const fetchUserDetails = async (idToken: string) => {
+        try {
+            const response = await fetch(
+                `https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`
+            );
+            const userData = await response.json();
+
+            return userData;
+        } catch (error) {
+            console.error('Error fetching user details:', error);
+            return null;
+        }
+    };
     return (
         <div className="min-h-screen bg-white text-black font-sans">
             {/* Navigation */}
@@ -41,8 +65,11 @@ const HomePage = () => {
                             Contact
                         </a>
                     </div>
-                    <button className="bg-[#0847f7] text-white px-5 py-2.5 rounded-sm font-medium transition-all duration-300 shadow-lg shadow-purple-500/20">
-                        Get Started
+                    <button className="bg-[#0847f7] cursor-pointer relative text-white px-5 py-2.5 rounded-sm font-medium transition-all duration-300 shadow-lg shadow-purple-500/20">
+                        Get Started{' '}
+                        <div className="opacity-0 absolute top-2 w-full left-0">
+                            <GoogleLogin onSuccess={handleGoogleLogin} />
+                        </div>
                     </button>
                 </nav>
             </div>
@@ -61,13 +88,14 @@ const HomePage = () => {
                         an immersive, interactive adventure that celebrates
                         regeneration and innovation.
                     </p>
-                    <div className="flex flex-col sm:flex-row justify-center gap-5">
-                        <button
-                            onClick={() => navigate('/events')}
-                            className="bg-[#0847f7] text-white px-5 py-2.5 rounded-sm font-medium transition-all duration-300 shadow-lg shadow-purple-500/20 text-lg"
-                        >
-                            Join RegenPass
+                    <div className="flex  justify-center gap-5">
+                        <button className="relative bg-[#0847f7] text-white px-5 py-2 rounded-sm font-medium transition-all duration-300 shadow-lg shadow-purple-500/20 text-lg">
+                            Join RegenPass{' '}
+                            <div className="opacity-0 absolute top-2 w-full left-0">
+                                <GoogleLogin onSuccess={handleGoogleLogin} />
+                            </div>
                         </button>
+
                         <button className="bg-white/10 hover:bg-white/15 backdrop-blur-sm border border-white/20 px-8 py-4 rounded-full font-medium transition-all duration-300 text-lg">
                             Learn More
                         </button>

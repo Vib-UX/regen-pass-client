@@ -6,6 +6,7 @@ import { baseSepolia } from 'wagmi/chains';
 import { WagmiProvider, createConfig, http } from 'wagmi';
 import { coinbaseWallet } from 'wagmi/connectors';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 const wagmiConfig = createConfig({
     chains: [baseSepolia],
     connectors: [
@@ -49,16 +50,22 @@ const Provider = ({ children }: { children: any }) => {
                     },
                 }}
             />
-            <WagmiProvider config={wagmiConfig}>
-                <QueryClientProvider client={queryClient}>
-                    <OnchainKitProvider
-                        apiKey={'yDaZynZGies9vtB5ZQDIVgRkFaM9IwXe'}
-                        chain={baseSepolia}
-                    >
-                        {children}
-                    </OnchainKitProvider>
-                </QueryClientProvider>
-            </WagmiProvider>
+            <GoogleOAuthProvider
+                clientId={
+                    '201737013329-1vammkv48a66k8ijo8fq6p1e34veqe0g.apps.googleusercontent.com'
+                }
+            >
+                <WagmiProvider config={wagmiConfig}>
+                    <QueryClientProvider client={queryClient}>
+                        <OnchainKitProvider
+                            apiKey={'yDaZynZGies9vtB5ZQDIVgRkFaM9IwXe'}
+                            chain={baseSepolia}
+                        >
+                            {children}
+                        </OnchainKitProvider>
+                    </QueryClientProvider>
+                </WagmiProvider>
+            </GoogleOAuthProvider>
         </ThemeProvider>
     );
 };
