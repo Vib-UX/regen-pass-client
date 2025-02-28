@@ -5,11 +5,16 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import HomePage from './pages/HomePage';
 import Provider from './provider';
+import EventsListing from './pages/Events';
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <HomePage />,
+    },
+    {
+        path: '/events',
+        element: <EventsListing />,
     },
 ]);
 
