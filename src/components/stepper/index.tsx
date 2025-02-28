@@ -34,6 +34,11 @@ export default function VerticalLinearStepper({
     event: any;
     isUserInRange: boolean;
 }) {
+    const [image, setImage] = React.useState<string | null>(null);
+    const [location, setLocation] = React.useState<any>({
+        latitude: 0,
+        longitude: 0,
+    });
     const [activeStep, setActiveStep] = React.useState(0);
     const [showAR, setShowAR] = React.useState(false);
     const handleNext = () => {
@@ -56,10 +61,6 @@ export default function VerticalLinearStepper({
     const handleARInvokation = () => {
         setShowAR(true);
     };
-    const handleCloseAR = () => {
-        setShowAR(false);
-        handleNext();
-    };
 
     React.useEffect(() => {
         if (isUserInRange && activeStep === 0) {
@@ -70,9 +71,26 @@ export default function VerticalLinearStepper({
         }
     }, [isUserInRange, activeStep]);
     return (
-        <div>
-            {showAR && <Ar onClose={handleCloseAR} />}
+        <>
             <Box sx={{ maxWidth: 400 }}>
+                {showAR ? (
+                    <Ar
+                        location={location}
+                        setIsArOpen={setShowAR}
+                        setImage={setImage}
+                    />
+                ) : image ? (
+                    <div className="relative">
+                        <img src={image} alt="Captured Screenshot" />
+                        <img
+                            src={''}
+                            alt="Overlay"
+                            className="absolute top-0 right-1"
+                            height={120}
+                            width={120}
+                        />
+                    </div>
+                ) : null}
                 <Stepper activeStep={activeStep} orientation="vertical">
                     {steps.map((step, index) => (
                         <Step
@@ -116,6 +134,6 @@ export default function VerticalLinearStepper({
                     </Paper>
                 )}
             </Box>
-        </div>
+        </>
     );
 }
