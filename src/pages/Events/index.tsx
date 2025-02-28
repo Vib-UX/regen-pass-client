@@ -6,6 +6,7 @@ import Navbar from '../../components/navbar';
 import { Button } from '../../components/ui/button';
 import StarWarsButton from '../../components/ui/startwar-btn';
 import { Card, CardContent } from '../../components/ui/cards';
+import Chatbot from '../../components/Chatbot';
 
 interface Host {
     name: string;
@@ -77,6 +78,7 @@ export default function EventsListing() {
             />
             <Navbar />
             <div className="min-h-screen bg-white text-black p-4 sm:p-8">
+                <Chatbot />
                 <div className="max-w-4xl mx-auto">
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8">
                         <h1 className="text-2xl sm:text-3xl font-semibold mb-4 sm:mb-0">
