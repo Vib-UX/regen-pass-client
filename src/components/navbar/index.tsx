@@ -1,10 +1,24 @@
 import { Bell, Calendar, Compass, Search } from 'lucide-react';
 
 import useGlobalStorage from '../../store';
-
+import {
+    ConnectWallet,
+    Wallet,
+    WalletDropdown,
+    WalletDropdownBasename,
+    WalletDropdownFundLink,
+    WalletDropdownLink,
+    WalletDropdownDisconnect,
+} from '@coinbase/onchainkit/wallet';
+import {
+    Address,
+    Avatar,
+    Name,
+    Identity,
+    EthBalance,
+} from '@coinbase/onchainkit/identity';
 import { Button } from '../ui/button';
 import { HoverBorderGradientDemo } from '../ui/wallet-button';
-
 export default function Navbar() {
     const { address } = useGlobalStorage();
     return (
@@ -50,10 +64,38 @@ export default function Navbar() {
                     >
                         <Bell className="h-5 w-5" />
                     </Button>
+                    <div className="relative z-10">
+                        <Wallet>
+                            <ConnectWallet>
+                                <Avatar className="h-6 w-6" />
+                                <Name />
+                            </ConnectWallet>
+                            <WalletDropdown>
+                                <Identity
+                                    className="px-4 pt-3 pb-2"
+                                    hasCopyAddressOnClick
+                                >
+                                    <Avatar />
+                                    <Name />
+                                    <Address />
+                                    <EthBalance />
+                                </Identity>
+                                <WalletDropdownBasename />
+                                <WalletDropdownLink
+                                    icon="wallet"
+                                    href="https://keys.coinbase.com"
+                                >
+                                    Wallet
+                                </WalletDropdownLink>
+                                <WalletDropdownFundLink />
+                                <WalletDropdownDisconnect />
+                            </WalletDropdown>
+                        </Wallet>
+                    </div>
 
-                    {window.location.pathname !== '/' && (
+                    {/* {window.location.pathname !== '/' && (
                         <HoverBorderGradientDemo title={address} />
-                    )}
+                    )} */}
                 </div>
             </div>
         </nav>

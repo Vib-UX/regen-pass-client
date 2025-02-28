@@ -1,5 +1,24 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { OnchainKitProvider } from '@coinbase/onchainkit';
+import '@coinbase/onchainkit/styles.css';
 import { Toaster } from 'react-hot-toast';
+import { baseSepolia } from 'wagmi/chains';
+import { WagmiProvider, createConfig, http } from 'wagmi';
+import { coinbaseWallet } from 'wagmi/connectors';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+const wagmiConfig = createConfig({
+    chains: [baseSepolia],
+    connectors: [
+        coinbaseWallet({
+            appName: 'onchainkit',
+        }),
+    ],
+    ssr: true,
+    transports: {
+        [baseSepolia.id]: http(),
+    },
+});
+const queryClient = new QueryClient();
 const Provider = ({ children }: { children: any }) => {
     const darkTheme = createTheme({
         palette: {
@@ -30,7 +49,16 @@ const Provider = ({ children }: { children: any }) => {
                     },
                 }}
             />
-            {children}
+            <WagmiProvider config={wagmiConfig}>
+                <QueryClientProvider client={queryClient}>
+                    <OnchainKitProvider
+                        apiKey={'yDaZynZGies9vtB5ZQDIVgRkFaM9IwXe'}
+                        chain={baseSepolia}
+                    >
+                        {children}
+                    </OnchainKitProvider>
+                </QueryClientProvider>
+            </WagmiProvider>
         </ThemeProvider>
     );
 };

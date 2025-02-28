@@ -7,6 +7,7 @@ import { Button } from '../../components/ui/button';
 import StarWarsButton from '../../components/ui/startwar-btn';
 import { calculateDistance, getUserLocation } from '../../lib/helper';
 import { events } from '../Events';
+import Navbar from '../../components/navbar';
 
 const getEventDetails = (id: string) => {
     return events.find((event) => event.slug === id);
@@ -44,6 +45,7 @@ export default function EventPage() {
 
     return (
         <div className="relative">
+            <Navbar />
             <img
                 className="absolute top-0 opacity-10"
                 src="https://cdn.prod.website-files.com/669aeedffebb61f45e26347a/678eb7c9f8fcb0d17dbdaf48_ETHDEN2025_web_background_nopaper_header.webp"
