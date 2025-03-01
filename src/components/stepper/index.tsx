@@ -13,14 +13,12 @@ import { getUserLocation } from '../../lib/helper';
 import Ar from '../Ar/index';
 
 const steps = [
+    { label: 'Email verification successfully done' },
     {
         label: 'You need to be within 500m of the event location to be able to verify',
     },
     {
         label: 'NFT collected successfully from booth',
-    },
-    {
-        label: 'Getting user details',
     },
     {
         label: 'All set!',

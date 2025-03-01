@@ -451,7 +451,7 @@ const HomePage = () => {
                                 RegenPass
                             </span>
                         </div>
-                        <div className="flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-16 text-center md:text-left">
+                        <div className="flex flex-col md:flex-row space-y-8 md:space-y-0  text-center">
                             <div>
                                 <h4 className="font-bold mb-4 text-white">
                                     Company

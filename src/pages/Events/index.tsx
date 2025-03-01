@@ -114,14 +114,8 @@ export default function EventsListing() {
                                         {event.dayOfWeek}
                                     </div>
                                 </div>
-                                <div className="relative ">
-                                    <div className="absolute top-3 w-3 h-3 rounded-full bg-zinc-700" />
-                                    <div
-                                        className="absolute top-3 left-1.5 bottom-0 w-px bg-zinc-800"
-                                        style={{ height: 'calc(100% + 2rem)' }}
-                                    />
-                                </div>
-                                <Card className="flex-1 border-zinc-800 md:ml-8 ml-0">
+
+                                <Card className="flex-1 border-zinc-800 md:ml-8 ml-4">
                                     <CardContent className="p-2 sm:p-6">
                                         <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
                                             <div className="flex-1">
@@ -136,35 +130,13 @@ export default function EventsListing() {
                                                         {event.time}
                                                     </span>
                                                 </div>
-                                                <h3 className="text-lg sm:text-xl font-medium mb-3 sm:mb-4 text-black">
+                                                <h3 className="text-2xl sm:text-xl font-medium mb-3 sm:mb-4 text-black">
                                                     {event.title}
                                                 </h3>
                                                 <div className="flex items-center gap-2 mb-2">
                                                     <span className="text-black text-sm">
                                                         By
                                                     </span>
-                                                    <div className="flex -space-x-2">
-                                                        {event.hosts.map(
-                                                            (host, i) => (
-                                                                <Avatar
-                                                                    key={i}
-                                                                    className="border-2 border-zinc-900 w-6 h-6"
-                                                                >
-                                                                    <AvatarImage
-                                                                        src={
-                                                                            host.avatar
-                                                                        }
-                                                                    />
-                                                                    <AvatarFallback>
-                                                                        {
-                                                                            host
-                                                                                .name[0]
-                                                                        }
-                                                                    </AvatarFallback>
-                                                                </Avatar>
-                                                            )
-                                                        )}
-                                                    </div>
                                                     <span className="text-black text-sm">
                                                         {event.hosts
                                                             .map((h) => h.name)
