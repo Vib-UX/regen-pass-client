@@ -114,11 +114,10 @@ const ArComponent = ({
                             try {
                                 setIsNftLoading(true);
 
-                                toast.success(
-                                    'Physical footprints pushed onchain'
-                                );
-                                setIsNftLoading(false);
-                                setIsNftEnabled(true);
+                                setTimeout(() => {
+                                    setIsNftLoading(false);
+                                    setIsNftEnabled(true);
+                                }, 6000);
                             } catch (error) {
                                 console.error('Error uploading image:', error);
                             }

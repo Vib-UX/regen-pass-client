@@ -1,3 +1,11 @@
+import {
+    Transaction,
+    TransactionButton,
+    TransactionSponsor,
+    TransactionStatus,
+    TransactionStatusAction,
+    TransactionStatusLabel,
+} from '@coinbase/onchainkit/transaction';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
@@ -8,10 +16,11 @@ import Stepper from '@mui/material/Stepper';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import toast from 'react-hot-toast';
+import { baseSepolia } from 'viem/chains';
+import { ABI } from '../../abi';
 import s from '../../assets/s.png';
 import { calculateDistance, getUserLocation } from '../../lib/helper';
 import Ar from '../Ar/index';
-
 const steps = [
     { label: 'Email verification' },
     {
@@ -100,7 +109,16 @@ export default function VerticalLinearStepper({
             handleARInvokation();
         }
     }, [isUserInRange, activeStep]);
-    console.log(image);
+
+    const calls = [
+        {
+            address: `0x2d2b9bf62b0143a8d68ed4a7063e5f50244dfc81`,
+            abi: ABI,
+            functionName: 'mint',
+            args: ['ipfs://testPOAPEth'],
+        },
+    ];
+
     return (
         <>
             <Box sx={{ maxWidth: 400 }}>
@@ -157,7 +175,20 @@ export default function VerticalLinearStepper({
                         </Step>
                     ))}
                 </Stepper>
-
+                {activeStep === 2 && (
+                    <Transaction
+                        chainId={baseSepolia.id}
+                        calls={calls}
+                        isSponsored
+                    >
+                        <TransactionButton />
+                        <TransactionSponsor />
+                        <TransactionStatus>
+                            <TransactionStatusLabel />
+                            <TransactionStatusAction />
+                        </TransactionStatus>
+                    </Transaction>
+                )}
                 {activeStep === steps.length && (
                     <Paper square elevation={0} sx={{ p: 3 }}>
                         <Typography>
