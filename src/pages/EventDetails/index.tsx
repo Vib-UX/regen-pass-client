@@ -26,9 +26,11 @@ export default function EventPage() {
     const handleVerification = () => {
         toast.dismiss();
         toast.loading('Verifying email');
-        toast.success('Email verified');
-        setEm(true);
-        setActiveStep(1);
+        setTimeout(() => {
+            toast.success('Email verified');
+            setEm(true);
+            setActiveStep(1);
+        }, 3000);
     };
 
     return (

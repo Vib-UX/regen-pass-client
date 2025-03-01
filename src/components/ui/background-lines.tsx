@@ -211,7 +211,7 @@ export function BackgroundLinesDemo() {
                     </div>
 
                     <div className="flex flex-row justify-center items-center gap-4 sm:gap-6 pt-4 sm:pt-8">
-                        <button className="relative w-full sm:w-auto min-w-[160px] bg-[#0847f7] text-white px-6 sm:px-8 py-3 rounded-full font-medium transition-all duration-300 shadow-lg shadow-blue-500/20 text-base sm:text-lg hover:scale-105">
+                        <button className="relative w-full sm:w-auto min-w-[160px] bg-[#0847f7] text-white p-3 rounded-full font-medium transition-all duration-300 shadow-lg shadow-blue-500/20 text-base sm:text-lg hover:scale-105">
                             Join RegenPass
                             <div className="opacity-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full">
                                 <GoogleLogin
