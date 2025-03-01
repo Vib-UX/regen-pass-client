@@ -10,6 +10,8 @@ import {
 import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import useGlobalStorage from '../../store';
+import { BackgroundLinesDemo } from '../../components/ui/background-lines';
+import { NavbarDemo } from '../../components/navbar/navbar-menu';
 const HomePage = () => {
     const navigate = useNavigate();
     const { setEmail, setName } = useGlobalStorage();
@@ -37,7 +39,8 @@ const HomePage = () => {
     return (
         <div className="min-h-screen bg-white text-black font-sans">
             {/* Navigation */}
-            <div className="bg-[#0c162c]">
+            <NavbarDemo/>
+            {/* <div className="bg-[#0c162c]">
                 <nav className="container mx-auto  px-6 py-6 flex justify-between items-center">
                     <div className="flex items-center space-x-2">
                         <Sparkles className="h-6 w-6 text-purple-400" />
@@ -72,18 +75,18 @@ const HomePage = () => {
                         </div>
                     </button>
                 </nav>
-            </div>
-
-            {/* Hero Section */}
-            <section className="container mx-auto px-6 py-16 z-10 relative">
+            </div> */}
+<BackgroundLinesDemo/>
+            {/* Hero Section - Added top padding for mobile */}
+            {/* <section className="container mx-auto px-6 pt-24 sm:pt-32 pb-16 z-10 relative">
                 <div className="max-w-4xl mx-auto text-center">
                     <div className="inline-block mb-4 px-6 py-2 bg-[#0847f7] rounded-sm text-sm font-medium text-white backdrop-blur-sm">
                         Introducing RegenPass
                     </div>
-                    <h1 className="text-4xl md:text-7xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-orange-400 leading-tight">
+                    <h1 className="text-3xl sm:text-4xl md:text-7xl font-bold mb-6 sm:mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-orange-400 leading-tight">
                         Your Gateway to Regenerative Event Experiences
                     </h1>
-                    <p className="text-lg md:text-xl mb-12 text-black max-w-3xl mx-auto">
+                    <p className="text-base sm:text-lg md:text-xl mb-8 sm:mb-12 text-black max-w-3xl mx-auto px-4">
                         RegenPass transforms traditional event attendance into
                         an immersive, interactive adventure that celebrates
                         regeneration and innovation.
@@ -101,7 +104,7 @@ const HomePage = () => {
                         </button>
                     </div>
                 </div>
-            </section>
+            </section> */}
             <img
                 className="absolute top-0 opacity-10"
                 src="https://cdn.prod.website-files.com/669aeedffebb61f45e26347a/678eb7c9f8fcb0d17dbdaf48_ETHDEN2025_web_background_nopaper_header.webp"
