@@ -408,14 +408,25 @@ const Leaderboard = () => {
 
                         {/* Result Message */}
                         {showResult && (
-                            <div className="mt-4 bg-gray-100 p-4 rounded-lg text-center">
-                                <h4 className="font-bold text-lg text-gray-800">
-                                    Try Again
-                                </h4>
-                                <p className="text-gray-600">
-                                    Better luck next time!
-                                </p>
-                            </div>
+                            <>
+                                {' '}
+                                <div className="mt-4 bg-gray-100 p-4 rounded-lg text-center">
+                                    <h4 className="font-bold text-lg text-gray-800">
+                                        Try Again
+                                    </h4>
+                                    <p className="text-gray-600">
+                                        Better luck next time!
+                                    </p>
+                                </div>
+                                <a
+                                    href="https://base-sepolia.blockscout.com/tx/0x6c726768a5ebadb11fdf152dd445d6872ff2457d16dae2ae4dc6cf06b15709a6"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="underline"
+                                >
+                                    View onchain
+                                </a>
+                            </>
                         )}
 
                         <div className="mt-4 flex justify-center">
