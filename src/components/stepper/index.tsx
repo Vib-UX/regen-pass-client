@@ -52,6 +52,7 @@ export default function VerticalLinearStepper({
     em: boolean;
 }) {
     const [image, setImage] = React.useState<string | null>(null);
+    const [ips, setIps] = React.useState<any>('');
     const [hash, setHash] = React.useState<any>('');
     const [location, setLocation] = React.useState<any>({
         latitude: 0,
@@ -100,8 +101,39 @@ export default function VerticalLinearStepper({
     const handleReset = () => {
         setActiveStep(0);
     };
-    const handleARInvokation = () => {
+    const handleARInvokation = async () => {
         setShowAR(true);
+        const caller = await fetch(
+            'https://regen-pass.up.railway.app/create-nft',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: '1',
+                    name: 'Eth Denver 2025 POAP',
+                    description:
+                        'This is a POAP for ETH Denver 2025 sponsered by Chainlink',
+                    image_uri:
+                        'https://res.cloudinary.com/dt1dn773q/image/upload/fl_preserve_transparency/v1740837333/nft_pgajbj.jpg?_s=public-apps',
+                    attributes: [
+                        { trait_type: 'Event', value: 'ETH Denver 2025' },
+                        { trait_type: 'Sponser', value: 'Chainlink' },
+                        {
+                            trait_type: 'Location',
+                            value: location.latitude + ',' + location.longitude,
+                        },
+                        { trait_type: 'Category', value: 'POAP' },
+                    ],
+                }),
+            }
+        );
+        const res = await caller.json();
+        if (res.success) {
+            const data = res.metadataIPFSUrl.split('https://')[1];
+            setIps(data);
+        }
     };
 
     React.useEffect(() => {
@@ -118,7 +150,7 @@ export default function VerticalLinearStepper({
             address: `0x2d2b9bf62b0143a8d68ed4a7063e5f50244dfc81`,
             abi: ABI,
             functionName: 'crossChainMint',
-            args: [address, 'ipfs://testPOAPEth', '16015286601757825753', 1],
+            args: [address, ips, '16015286601757825753', 1],
         },
     ];
     const handleOnStatus = React.useCallback((status: LifecycleStatus) => {
@@ -141,11 +173,13 @@ export default function VerticalLinearStepper({
                     <div className="relative">
                         <img src={image} alt="Captured Screenshot" />
                         <img
-                            src={s}
+                            src={
+                                'https://res.cloudinary.com/dt1dn773q/image/upload/fl_preserve_transparency/v1740837333/nft_pgajbj.jpg?_s=public-apps'
+                            }
                             alt="Overlay"
                             className="absolute top-0 right-1"
-                            height={150}
-                            width={150}
+                            height={200}
+                            width={200}
                         />
                     </div>
                 ) : null}
