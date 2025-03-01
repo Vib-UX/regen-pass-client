@@ -75,7 +75,7 @@ const HomePage = () => {
             </div>
 
             {/* Hero Section */}
-            <section className="container mx-auto px-6 py-20 md:py-24 z-10 relative">
+            <section className="container mx-auto px-6 py-16 z-10 relative">
                 <div className="max-w-4xl mx-auto text-center">
                     <div className="inline-block mb-4 px-6 py-2 bg-[#0847f7] rounded-sm text-sm font-medium text-white backdrop-blur-sm">
                         Introducing RegenPass
@@ -88,7 +88,7 @@ const HomePage = () => {
                         an immersive, interactive adventure that celebrates
                         regeneration and innovation.
                     </p>
-                    <div className="flex flex-col md:flex-row  justify-center gap-5">
+                    <div className="flex flex-col  justify-center gap-5">
                         <button className="relative bg-[#0847f7] text-white px-5 py-2 rounded-sm font-medium transition-all duration-300 shadow-lg shadow-purple-500/20 text-lg">
                             Join RegenPass{' '}
                             <div className="opacity-0 absolute top-2 w-full left-0">

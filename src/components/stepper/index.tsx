@@ -21,6 +21,7 @@ import { ABI } from '../../abi';
 import s from '../../assets/s.png';
 import { calculateDistance, getUserLocation } from '../../lib/helper';
 import Ar from '../Ar/index';
+import type { LifecycleStatus } from '@coinbase/onchainkit/transaction';
 const steps = [
     { label: 'Email verification' },
     {
@@ -50,7 +51,7 @@ export default function VerticalLinearStepper({
     em: boolean;
 }) {
     const [image, setImage] = React.useState<string | null>(null);
-
+    const [hash, setHash] = React.useState<any>('');
     const [location, setLocation] = React.useState<any>({
         latitude: 0,
         longitude: 0,
@@ -123,7 +124,13 @@ export default function VerticalLinearStepper({
             ],
         },
     ];
-
+    const handleOnStatus = React.useCallback((status: LifecycleStatus) => {
+        if (status?.statusName === 'success') {
+            setHash(
+                status?.statusData?.transactionReceipts[0]?.transactionHash
+            );
+        }
+    }, []);
     return (
         <>
             <Box sx={{ maxWidth: 400 }}>
@@ -181,19 +188,36 @@ export default function VerticalLinearStepper({
                     ))}
                 </Stepper>
                 {activeStep === 2 && (
-                    <Transaction
-                        chainId={baseSepolia.id}
-                        calls={calls}
-                        isSponsored
-                    >
-                        <TransactionButton />
-                        <TransactionSponsor />
-                        <TransactionStatus>
-                            <TransactionStatusLabel />
-                            <TransactionStatusAction />
-                        </TransactionStatus>
-                    </Transaction>
+                    <>
+                        <Transaction
+                            chainId={baseSepolia.id}
+                            calls={calls}
+                            isSponsored
+                            onStatus={handleOnStatus}
+                        >
+                            <TransactionButton />
+                            <TransactionSponsor />
+                            <TransactionStatus>
+                                <TransactionStatusLabel />
+                                <TransactionStatusAction />
+                            </TransactionStatus>
+                        </Transaction>
+                        {hash && (
+                            <div className="font-semibold text-lg">
+                                Transaction success 🎉{' '}
+                                <a
+                                    href={`https://ccip.chain.link/tx/${hash}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="underline"
+                                >
+                                    (View on Chain)
+                                </a>
+                            </div>
+                        )}
+                    </>
                 )}
+
                 {activeStep === steps.length && (
                     <Paper square elevation={0} sx={{ p: 3 }}>
                         <Typography>
