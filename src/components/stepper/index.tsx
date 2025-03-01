@@ -18,7 +18,6 @@ import * as React from 'react';
 import toast from 'react-hot-toast';
 import { baseSepolia } from 'viem/chains';
 import { ABI } from '../../abi';
-import s from '../../assets/s.png';
 import { calculateDistance, getUserLocation } from '../../lib/helper';
 import Ar from '../Ar/index';
 import type { LifecycleStatus } from '@coinbase/onchainkit/transaction';
