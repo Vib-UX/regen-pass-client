@@ -88,7 +88,7 @@ const HomePage = () => {
                         an immersive, interactive adventure that celebrates
                         regeneration and innovation.
                     </p>
-                    <div className="flex  justify-center gap-5">
+                    <div className="flex flex-col md:flex-row  justify-center gap-5">
                         <button className="relative bg-[#0847f7] text-white px-5 py-2 rounded-sm font-medium transition-all duration-300 shadow-lg shadow-purple-500/20 text-lg">
                             Join RegenPass{' '}
                             <div className="opacity-0 absolute top-2 w-full left-0">

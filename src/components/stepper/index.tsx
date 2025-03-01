@@ -114,8 +114,13 @@ export default function VerticalLinearStepper({
         {
             address: `0x2d2b9bf62b0143a8d68ed4a7063e5f50244dfc81`,
             abi: ABI,
-            functionName: 'mint',
-            args: ['ipfs://testPOAPEth'],
+            functionName: 'crossChainMint',
+            args: [
+                '0x2d2b9bf62b0143a8d68ed4a7063e5f50244dfc81',
+                'ipfs://testPOAPEth',
+                '16015286601757825753',
+                1,
+            ],
         },
     ];
 
