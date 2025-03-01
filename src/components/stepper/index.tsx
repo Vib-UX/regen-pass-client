@@ -111,7 +111,7 @@ export default function VerticalLinearStepper({
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    id: '1',
+                    id: Math.floor(Math.random() * 90 + 10).toString(),
                     name: 'Eth Denver 2025 POAP',
                     description:
                         'This is a POAP for ETH Denver 2025 sponsered by Chainlink',
