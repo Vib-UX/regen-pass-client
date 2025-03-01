@@ -59,7 +59,7 @@ export const events: Event[] = [
         description:
             '🌟 Welcome to the Builders House: Where BUIDLERs Takes Center Stage! 🚀 Join us for an unforgettable 2-day Builders House experience during India Blockchain Week (IBW) in the heart of Bangalore! This isn’t just an event—its your creative playground, designed for builders, by builders.',
         thumbnail:
-            'https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,background=white,quality=75,width=400,height=400/event-covers/7p/54abbeb5-85a9-4e1a-ba51-21b1fd576a2d',
+            'https://cdn.prod.website-files.com/669aeedffebb61f45e26347a/67ba12c2f7767b3983b2da54_ETHDEN2025_venue_event_map_stagelocations%20(1)-p-2600.jpg',
     },
 ];
 
@@ -84,7 +84,7 @@ export default function EventsListing() {
                         <h1 className="text-2xl sm:text-3xl font-semibold mb-4 sm:mb-0">
                             Events
                         </h1>
-                        <div className="bg-zinc-800 rounded-lg p-1 w-full sm:w-auto">
+                        <div className="bg-zinc-800 rounded-lg p-1 w-fit ml-auto sm:w-auto">
                             <Button
                                 variant="ghost"
                                 className="bg-zinc-700 text-white rounded-md w-1/2 sm:w-auto"
@@ -114,15 +114,15 @@ export default function EventsListing() {
                                         {event.dayOfWeek}
                                     </div>
                                 </div>
-                                <div className="relative hidden sm:block">
+                                <div className="relative ">
                                     <div className="absolute top-3 w-3 h-3 rounded-full bg-zinc-700" />
                                     <div
                                         className="absolute top-3 left-1.5 bottom-0 w-px bg-zinc-800"
                                         style={{ height: 'calc(100% + 2rem)' }}
                                     />
                                 </div>
-                                <Card className="flex-1 border-zinc-800">
-                                    <CardContent className="p-4 sm:p-6">
+                                <Card className="flex-1 border-zinc-800 md:ml-8 ml-0">
+                                    <CardContent className="p-2 sm:p-6">
                                         <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
                                             <div className="flex-1">
                                                 {/* Time and Status */}
@@ -206,7 +206,7 @@ export default function EventsListing() {
                                                 <img
                                                     src={event.thumbnail}
                                                     alt={event.title}
-                                                    className="w-full h-full object-cover rounded-lg"
+                                                    className="object-cover rounded-lg"
                                                 />
                                             </div>
                                         </div>

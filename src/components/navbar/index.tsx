@@ -26,7 +26,7 @@ export default function Navbar() {
 
             <div
                 onClick={() => (window.location.href = '/')}
-                className="flex items-center space-x-4 cursor-pointer text-white font-bold text-2xl relative"
+                className="flex items-center space-x-4 cursor-pointer text-white font-bold text-2xl relative z-10"
             >
                 Regen
             </div>

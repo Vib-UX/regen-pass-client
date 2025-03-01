@@ -52,7 +52,7 @@ const Provider = ({ children }: { children: any }) => {
             />
             <GoogleOAuthProvider
                 clientId={
-                    '201737013329-1vammkv48a66k8ijo8fq6p1e34veqe0g.apps.googleusercontent.com'
+                    '1083898684952-op7cr4bf49mvsp0q4j7pbltofkctjksv.apps.googleusercontent.com'
                 }
             >
                 <WagmiProvider config={wagmiConfig}>
