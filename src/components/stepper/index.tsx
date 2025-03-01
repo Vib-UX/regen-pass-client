@@ -8,12 +8,12 @@ import Stepper from '@mui/material/Stepper';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import toast from 'react-hot-toast';
-
-import { getUserLocation } from '../../lib/helper';
+import s from '../../assets/s.png';
+import { calculateDistance, getUserLocation } from '../../lib/helper';
 import Ar from '../Ar/index';
 
 const steps = [
-    { label: 'Email verification successfully done' },
+    { label: 'Email verification' },
     {
         label: 'You need to be within 500m of the event location to be able to verify',
     },
@@ -28,16 +28,25 @@ const steps = [
 export default function VerticalLinearStepper({
     event,
     isUserInRange,
+    activeStep,
+    setActiveStep,
+    setIsUserInRange,
+    em,
 }: {
     event: any;
     isUserInRange: boolean;
+    activeStep: number;
+    setActiveStep: React.Dispatch<React.SetStateAction<number>>;
+    setIsUserInRange: React.Dispatch<React.SetStateAction<boolean>>;
+    em: boolean;
 }) {
     const [image, setImage] = React.useState<string | null>(null);
+
     const [location, setLocation] = React.useState<any>({
         latitude: 0,
         longitude: 0,
     });
-    const [activeStep, setActiveStep] = React.useState(0);
+
     const [showAR, setShowAR] = React.useState(false);
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -52,7 +61,30 @@ export default function VerticalLinearStepper({
             localStorage.setItem('userUsed', 'true');
         }
     };
+    const validateUserCoordinates = async () => {
+        toast.dismiss();
+        toast.loading('Verifying user location...');
+        const location = await getUserLocation();
 
+        if (location) {
+            const distance = calculateDistance({
+                lat1: location.latitude, //event
+                lon1: location.longitude, //event
+                lat2: location.latitude,
+                lon2: location.longitude,
+            });
+            if (distance <= 500) {
+                toast.dismiss();
+                toast.success('You are in range of the event location');
+                setIsUserInRange(true);
+                handleNext();
+            } else {
+                toast.dismiss();
+                toast.error('You are not in range of the event location');
+                setIsUserInRange(false);
+            }
+        }
+    };
     const handleReset = () => {
         setActiveStep(0);
     };
@@ -61,13 +93,14 @@ export default function VerticalLinearStepper({
     };
 
     React.useEffect(() => {
-        if (isUserInRange && activeStep === 0) {
-            handleNext();
+        if (activeStep == 1) {
+            validateUserCoordinates();
         }
-        if (activeStep === 1) {
+        if (activeStep === 2) {
             handleARInvokation();
         }
     }, [isUserInRange, activeStep]);
+    console.log(image);
     return (
         <>
             <Box sx={{ maxWidth: 400 }}>
@@ -81,11 +114,11 @@ export default function VerticalLinearStepper({
                     <div className="relative">
                         <img src={image} alt="Captured Screenshot" />
                         <img
-                            src={''}
+                            src={s}
                             alt="Overlay"
                             className="absolute top-0 right-1"
-                            height={120}
-                            width={120}
+                            height={150}
+                            width={150}
                         />
                     </div>
                 ) : null}
@@ -93,7 +126,10 @@ export default function VerticalLinearStepper({
                     {steps.map((step, index) => (
                         <Step
                             key={step.label}
-                            completed={isUserInRange && index === 0}
+                            completed={
+                                (isUserInRange && index === 1) ||
+                                (em && index === 0)
+                            }
                         >
                             <StepLabel
                                 optional={
@@ -121,6 +157,7 @@ export default function VerticalLinearStepper({
                         </Step>
                     ))}
                 </Stepper>
+
                 {activeStep === steps.length && (
                     <Paper square elevation={0} sx={{ p: 3 }}>
                         <Typography>

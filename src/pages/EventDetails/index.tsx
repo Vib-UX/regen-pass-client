@@ -2,19 +2,20 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useParams } from 'react-router-dom';
 
+import Navbar from '../../components/navbar';
 import VerticalLinearStepper from '../../components/stepper';
 import { Button } from '../../components/ui/button';
 import StarWarsButton from '../../components/ui/startwar-btn';
-import { calculateDistance, getUserLocation } from '../../lib/helper';
 import { events } from '../Events';
-import Navbar from '../../components/navbar';
 
 const getEventDetails = (id: string) => {
     return events.find((event) => event.slug === id);
 };
 
 export default function EventPage() {
+    const [em, setEm] = useState(false);
     const [isUserInRange, setIsUserInRange] = useState(false);
+    const [activeStep, setActiveStep] = useState(0);
     const params = useParams();
     const eventId = params.eventId as string;
     const event = getEventDetails(eventId);
@@ -22,25 +23,12 @@ export default function EventPage() {
         return <div>Event not found</div>;
     }
 
-    const validateUserCoordinates = async () => {
-        toast.loading('Verifying user location...');
-        const location = await getUserLocation();
-
-        if (location) {
-            const distance = calculateDistance({
-                lat1: location.latitude, //event
-                lon1: location.longitude, //event
-                lat2: location.latitude,
-                lon2: location.longitude,
-            });
-            if (distance <= 500) {
-                toast.success('You are in range of the event location');
-                setIsUserInRange(true);
-            } else {
-                toast.error('You are not in range of the event location');
-                setIsUserInRange(false);
-            }
-        }
+    const handleVerification = () => {
+        toast.dismiss();
+        toast.loading('Verifying email');
+        toast.success('Email verified');
+        setEm(true);
+        setActiveStep(1);
     };
 
     return (
@@ -101,12 +89,16 @@ export default function EventPage() {
 
                     <StarWarsButton
                         title={' Verify for Event'}
-                        onClick={validateUserCoordinates}
+                        onClick={handleVerification}
                     />
 
                     <VerticalLinearStepper
                         event={event}
                         isUserInRange={isUserInRange}
+                        setIsUserInRange={setIsUserInRange}
+                        activeStep={activeStep}
+                        setActiveStep={setActiveStep}
+                        em={em}
                     />
                 </div>
             </div>

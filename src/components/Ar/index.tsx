@@ -41,7 +41,7 @@ const NFTModel = () => {
     const { scene } = useGLTF('/nft.glb'); // Load the 3D model
 
     // Adjust position dynamically based on screen size
-    const scale = window.innerWidth < 768 ? [0.5, 0.5, 0.5] : [1, 1, 1]; // Scale for mobile vs desktop
+    const scale = window.innerWidth < 768 ? [4, 4, 4] : [1, 1, 1]; // Scale for mobile vs desktop
 
     // Rotate the model for some animation
     useFrame(() => {
@@ -139,12 +139,11 @@ const ArComponent = ({
     return (
         <div
             style={{
-                height: '80vh',
-                width: '100vw',
                 overflow: 'hidden',
                 position: 'relative',
             }}
             id="capture-area"
+            className="relative"
         >
             {/* Webcam background */}
             <WebcamBackground />
@@ -158,13 +157,13 @@ const ArComponent = ({
             </Canvas>
 
             {isNftLoading ? (
-                <div style={{ position: 'absolute', top: '30%', left: '12%' }}>
+                <div style={{ position: 'absolute', top: '30%', left: '20%' }}>
                     <WhirlpoolLoader />
                 </div>
             ) : (
                 <button
                     onClick={captureScreenshot}
-                    className="absolute left-1/2 bottom-12 bg-white size-10 rounded-full"
+                    className="absolute left-40 bottom-0 bg-white size-10 rounded-full"
                 />
             )}
         </div>
