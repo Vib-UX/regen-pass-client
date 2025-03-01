@@ -22,6 +22,7 @@ import s from '../../assets/s.png';
 import { calculateDistance, getUserLocation } from '../../lib/helper';
 import Ar from '../Ar/index';
 import type { LifecycleStatus } from '@coinbase/onchainkit/transaction';
+import { useAccount } from 'wagmi';
 const steps = [
     { label: 'Email verification' },
     {
@@ -56,6 +57,7 @@ export default function VerticalLinearStepper({
         latitude: 0,
         longitude: 0,
     });
+    const { address } = useAccount();
 
     const [showAR, setShowAR] = React.useState(false);
     const handleNext = () => {
@@ -116,12 +118,7 @@ export default function VerticalLinearStepper({
             address: `0x2d2b9bf62b0143a8d68ed4a7063e5f50244dfc81`,
             abi: ABI,
             functionName: 'crossChainMint',
-            args: [
-                '0x2d2b9bf62b0143a8d68ed4a7063e5f50244dfc81',
-                'ipfs://testPOAPEth',
-                '16015286601757825753',
-                1,
-            ],
+            args: [address, 'ipfs://testPOAPEth', '16015286601757825753', 1],
         },
     ];
     const handleOnStatus = React.useCallback((status: LifecycleStatus) => {
